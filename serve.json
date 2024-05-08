@@ -1,0 +1,6 @@
+{
+  "public": "out",
+  "rewrites": [
+    { "source": "/clients/*", "destination": "/clients/[id].html" }
+  ]
+}
