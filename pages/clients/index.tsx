@@ -1,16 +1,24 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Page() {
+  const [clients, setClients] = useState<{ id: string; name: string }[]>([]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((r) => r.json())
+      .then(setClients);
+  }, []);
+
   return (
     <div>
-      <p>Welcome to /clients</p>
+      <p>Client List:</p>
       <ul>
-        <li>
-          <Link href="/clients/1">Client 1</Link>
-        </li>
-        <li>
-          <Link href="/clients/2">Client 2</Link>
-        </li>
+        {clients.map((c) => (
+          <li key={c.id}>
+            <Link href={"/clients/" + c.id}>{c.name}</Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
